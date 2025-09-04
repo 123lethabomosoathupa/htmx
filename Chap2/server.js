@@ -1,29 +1,40 @@
+// Import the 'express' module to create a web server
 import express from 'express';
 
+// Create an instance of an Express application
 const app = express();
 
-// Set static folder
+// ----------------------
+// Middleware
+// ----------------------
+
+// Serve static files (HTML, CSS, JS, images) from the 'public' folder
 app.use(express.static('public'));
 
-// Parse URL-encoded bodies (as sent by HTML forms)
+// Parse URL-encoded bodies (submitted via HTML forms)
+// 'extended: true' allows rich objects/arrays in form data
 app.use(express.urlencoded({ extended: true }));
 
-// Parse JSON bodies (as sent by API clients)
+// Parse JSON request bodies (useful for API clients making POST requests)
 app.use(express.json());
 
 // ----------------------
-// Handle POST BMI request (all inline)
+// Handle POST BMI request
 // ----------------------
 app.post('/calculate', (req, res) => {
+    // Extract and convert 'height' and 'weight' values from the form body
     const height = parseFloat(req.body.height);
     const weight = parseFloat(req.body.weight);
 
+    // Validate input – ensure both values are provided
     if (!height || !weight) {
         return res.send("<p>Please provide both height and weight.</p>");
     }
 
+    // Calculate BMI using formula: weight (kg) / [height (m) * height (m)]
     const bmi = weight / (height * height);
 
+    // Determine BMI category based on standard ranges
     let category;
     if (bmi < 18.5) {
         category = "Underweight";
@@ -35,6 +46,7 @@ app.post('/calculate', (req, res) => {
         category = "Obese";
     }
 
+    // Send back an HTML response showing the BMI result and category
     res.send(`
         <p>Your BMI is <strong>${bmi.toFixed(1)}</strong> therefore you are <strong>${category}</strong>.</p>
         <p></p>
@@ -44,6 +56,7 @@ app.post('/calculate', (req, res) => {
 // ----------------------
 // Start the server
 // ----------------------
+// Listen on port 3000 and log a message when the server starts
 app.listen(3000, () => {
     console.log('Server listening on port 3000');
 });
