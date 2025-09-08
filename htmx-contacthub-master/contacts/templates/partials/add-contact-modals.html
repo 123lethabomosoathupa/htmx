@@ -1,0 +1,28 @@
+<dialog id="contact_modal" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg nb-4">Add New Contact</h3>
+    <form hx-post="{% url 'create-contact' %}" hx-target="#contact-table-body" hx-swap="afterbegin" hx-one:success ="contact_modal.close() this.reset();"  class="mb-4">
+      {% csrf_token %}
+      <div class="form-control w-full">
+        <label class="label">
+          <span class="label-text">Name</span>
+          {{ form.name }}
+          {% if form.name.errors %}
+            <label class="label-text-error">{{ form.name.errors }}</label>
+          {% endif %}
+        </label>
+        <label class="label">
+          <span class="label-text">Email Address</span>
+          {{ form.email }}
+          {% if form.email.errors %}
+            <label class="label-text-error">{{ form.email.errors }}</label>
+          {% endif %}
+        </label>
+        <div class="modal-action">
+          <button type="cancel" class="btn" onclick="contact_modal.close()">Cancel</button>
+          <button type="submit" class="btn ntn-primary">Add Contact</button>
+        </div>
+
+      </form>
+  </div>
+</dialog>
