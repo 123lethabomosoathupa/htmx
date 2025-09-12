@@ -1,3 +1,24 @@
+/**
+ * This Express.js server provides email validation functionality.
+ *
+ * Features:
+ * 1. Serves static files (HTML, CSS, JS, images) from the "public" directory.
+ * 2. Parses both URL-encoded form submissions and JSON request bodies.
+ * 3. Defines a POST route at "/email" that:
+ *    - Extracts an email from the request body.
+ *    - Validates the email using a regular expression for standard formats.
+ *    - If valid: responds with an HTML form field showing a success alert.
+ *    - If invalid: responds with an HTML form field showing an error alert.
+ *    - Uses HTMX attributes (`hx-target`, `hx-swap`, `hx-post`) so the
+ *      response replaces the form field dynamically without reloading the page.
+ * 4. Starts the server on port 3000 and logs a confirmation message.
+ *
+ * Goal:
+ * To demonstrate how an Express server can handle form submissions,
+ * perform server-side validation, and return dynamic HTML fragments
+ * for immediate client-side updates.
+ */
+
 // Import the 'express' module to create a web server
 import express from 'express';
 

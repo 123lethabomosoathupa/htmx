@@ -10,15 +10,16 @@ def index(request):
     contacts = request.user.contacts.all().order_by('-created_at')
     context = {
         'contacts': contacts,
-        'form':ContactForm()
-        }
+        'form': ContactForm()
+    }
     return render(request, 'contacts.html', context)
 
 
 @login_required
 def search_contacts(request):
     import time
-    time.sleep(2)
+    time.sleep(2)  # simulate delay for spinner
+
     query = request.GET.get('search', '').strip()
 
     if query:
@@ -30,26 +31,27 @@ def search_contacts(request):
 
     return render(request, 'partials/contact-list.html', {'contacts': contacts})
 
+
 @login_required
 @require_http_methods(['POST'])
 def create_contact(request):
-    form = ContactForm(request.POST, initial={'user': request.user})
+    form = ContactForm(request.POST,request.FILES, initial={'user': request.user})
     if form.is_valid():
-        contact =  form.save(commit=False)
+        contact = form.save(commit=False)
         contact.user = request.user
-        contact.save(
-        )
+        contact.save()
+
         context = {'contact': contact}
         response = render(
             request, 'partials/contact-row.html', context
         )
-        response['HX-Trigger']='success'
+        response['HX-Trigger'] = 'success'
         return response
     else:
-         response = render(
+        # Re-render the modal with errors
+        response = render(
             request, 'partials/add-contact-modals.html', {'form': form}
         )
-         response['HX-Trigger'] = '#contact_modal'
-         response['HX-Reswap'] = 'outerHTML'
-         response['HX-Trigger-After-Settle'] = 'fail'
-         return response
+        response['HX-Reswap'] = 'outerHTML'   # Replace modal contents
+        response['HX-Retarget'] = '#contact_modal'  # Target modal container
+        return response

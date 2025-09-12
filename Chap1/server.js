@@ -1,3 +1,21 @@
+/**
+ * This Express.js server demonstrates how to:
+ * 1. Serve static files from the "public" directory.
+ * 2. Parse incoming request data (URL-encoded form data and JSON).
+ * 3. Define a GET route at "/users" that:
+ *    - Accepts an optional "limit" query parameter (?limit=5), defaulting to 10.
+ *    - Simulates network delay with a 2-second timeout.
+ *    - Fetches user data from the JSONPlaceholder API.
+ *    - Sends back an HTML response listing the fetched user names.
+ * 4. Start the server on port 3000 and log a message when it is running.
+ *
+ * Goal:
+ * To illustrate how an Express server can handle static files, process requests,
+ * fetch external data, and return dynamic content — serving as a foundation
+ * for learning and building web applications.
+ */
+
+
 // Import the 'express' module to create a web server
 import express from 'express';
 
@@ -43,3 +61,4 @@ app.get('/users', async (req, res) => {
 app.listen(3000, () => {
     console.log('Server listening on port 3000');
 });
+

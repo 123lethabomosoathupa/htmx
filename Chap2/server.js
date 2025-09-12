@@ -1,3 +1,23 @@
+/**
+ * This Express.js server provides a simple BMI (Body Mass Index) calculator.
+ *
+ * Features:
+ * 1. Serves static files (HTML, CSS, JS, images) from the "public" folder.
+ * 2. Parses both URL-encoded form data and JSON request bodies.
+ * 3. Defines a POST route at "/calculate" that:
+ *    - Accepts height (in meters) and weight (in kilograms) from a form submission.
+ *    - Validates inputs to ensure both values are provided.
+ *    - Calculates BMI using the formula: weight / (height * height).
+ *    - Determines the BMI category (Underweight, Healthy Weight, Overweight, Obese).
+ *    - Responds with an HTML message displaying the BMI and its category.
+ * 4. Starts the server on port 3000 and logs a confirmation message.
+ *
+ * Goal:
+ * To demonstrate how an Express server can process form submissions,
+ * perform calculations, and return dynamic responses to the client.
+ */
+
+
 // Import the 'express' module to create a web server
 import express from 'express';
 

@@ -1,3 +1,24 @@
+/**
+ * This Express.js server provides a simple user search feature.
+ *
+ * Features:
+ * 1. Serves static files (HTML, CSS, JS, images) from the "public" directory.
+ * 2. Parses both URL-encoded form submissions and JSON request bodies.
+ * 3. Defines a POST route at "/search" that:
+ *    - Extracts a search term from the request body.
+ *    - Fetches a list of users from the JSONPlaceholder API.
+ *    - Filters users whose name or email contains the search term (case-insensitive).
+ *    - Returns matching results as HTML <tr> elements for use in a table.
+ *    - If no search term is provided, returns an empty row.
+ * 4. Starts the server on port 3000 and logs a confirmation message.
+ *
+ * Goal:
+ * To demonstrate how an Express server can handle form submissions,
+ * fetch and filter external API data, and return dynamic HTML for rendering
+ * in the client’s UI (such as updating a search results table).
+ */
+
+
 // Import the 'express' module to create a web server
 import express from 'express';
 
